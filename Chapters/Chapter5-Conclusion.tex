@@ -1,0 +1,14 @@
+% Chapter Template
+
+\chapter{Conclusion} % Main chapter title
+
+\label{Chapter5} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Section 1}
+The implementation of a new control system to handle the control of an AUV is no simple task. The design focused on fixing the failures of the existing system, while keeping some of the successful features in the design. However, the new design missed out on an abstracted interaction with the rest of the submarine systems. This lead to more complicated procedures, which hindered the on-the-fly development of different procedures.
+
+The dynamic loading of states also sparked the idea of creating a system for writing dynamic procedures in some language that would be interpreted and loaded into the control system on startup. This would remove the requirement of changes of procedures resulting in recompiling the control system package. Would allow for procedures to be defined alongside the configuration files, and allow rapid-fire prototyping with the ability to tune the procedures and immediately test against a running system.

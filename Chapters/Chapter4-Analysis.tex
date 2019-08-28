@@ -1,0 +1,45 @@
+% Chapter Template
+
+\chapter{Analysis} % Main chapter title
+
+\label{Chapter4} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+This section covers both the failures and success stories of the system. It is worth noting that these were uncovered after the systems were integrated, and testing was being done preparing for the competition and at the competition.
+
+%---------------------------------------------------------------------------
+%	SECTION 1 - Failures
+%---------------------------------------------------------------------------
+
+\section{Failures}
+
+\subsection{Resource Access}
+The system design did not provide a simple mechanism for acquiring resources from submarine. This lead to procedures being more complex than required, which caused an increase in procedure development time. This was because the complexity of the code lead to longer implementation and debugging time. This issue can be mitigated by implementing an interface that provides access to resources through a globally available singleton that abstracts access to all available resources. Alternatively, some abstraction offered by the control system to specific resources which the procedure would need to request.
+
+\subsection{Navigation}
+The system design missed out on the easy interface for movement that was seen in \ref{fig:DirectStateHandling}. With the predefined movement commands it was easier to add new states with different movement characteristics. This was completely overlooked on the new system design, the idea of writing procedures to complete individual tasks didn't inherently support this idea of using predefined movement commands. But seeing the results from a similar approach to navigation controls as was seen in resource access. This again caused more complex code which took longer to develop. Although it offered the highest degree of control, it was unnecessary as most of the procedures should have the movement abstracted away much like the detection system.
+
+\begin{figure}
+\centering
+\includegraphics[width=150mm]{Figures/NewProcedureOverhead}
+\decoRule
+\caption[New Procedure Overhead]{Code segment shows new per-procedure overhead.}
+\label{fig:NewProcedureOverhead}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 2 - Successes
+%----------------------------------------------------------------------------------------
+
+\section{Successes}
+
+The systems modularity and on-the-fly customization worked exactly as intended. This would allow for varying the ordering tasks.
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width=150mm]{Figures/ExampleConfig}
+\decoRule
+\caption[Example Configuration File]{Shows a simple example idle configuration file. Demonstrating use of simple state organization and definition of state transitions.}
+\label{fig:ExampleConfig}
+\end{figure}

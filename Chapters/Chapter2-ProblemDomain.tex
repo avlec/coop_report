@@ -1,0 +1,23 @@
+% Chapter Template
+
+\chapter{Problem Domain} % Main chapter title
+
+\label{Chapter2} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+
+%----------------------------------------------------------------------------------------
+%	SECTION 1 - Operational Environment
+%----------------------------------------------------------------------------------------
+
+\section{Operational Environment}
+
+The development for the AUV's high-level software system is developed in C++ and python. These languages are used as they work with our development environment. Our development consists of two primary libraries, ROS and OpenCV, running on Ubuntu 16.04. ROS, short for - Robot Operating System - is a amalgamation of different libraries useful for the development of robotic systems. We primarily use ROS for inter-process communication management, and hardware abstraction. OpenCV is a software package for the processing of images and video, used to give the AUV understanding from visual inputs.
+
+The existing system consists of several different packages, two of which are impacted by the development of a new control system; those being "ai" (which would be renamed to controlsystem) and "nav" (which would be renamed to navigation). The ai package handled the state machine functionality of the AUV, also handling the detection systems as well.
+
+Existing systems.
+Inter-connectivity through ROS communication structures (that diagram).
+Programming languages, and technologies.
+
+Hardware.
+Hydrophones, hydrophone boards, power board, IMU, Jetson TX2.
+Diagram of hardware connections.
