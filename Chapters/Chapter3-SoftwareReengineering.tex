@@ -1,8 +1,6 @@
-% Chapter Template
+\chapter{Software Re-engineering}
 
-\chapter{Software Re-engineering} % Main chapter title
-
-\label{Chapter3} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{Chapter3}
 
 This section covers a simplified process of reverse engineering, that is a process for taking an existing system developing an understanding of how it works, then refactoring that system and engineering changes, then implementing the system as to the conclusions made during refactoring.
 
@@ -13,15 +11,15 @@ Restructuring is the process of taking an existing design and making changes to 
 % Need to expand this section.
 Forward engineering is the process of taking the results of the system specification created from the two previous steps of the reengineering process integrating the system into the code-base.
 
-%----------------------------------------------------------------------------------------
-%	SECTION 1 - System Understanding
-%----------------------------------------------------------------------------------------
-
 \section{System Understanding}
 
 The system is arranged for the most part into different functional groups, referred to as packages. There are some exceptions to this as seen in the "ai" package, where the responsibility of controls, vision, and movement is all amalgamated together.
 
-% These two figures need to be repositioned.
+The flow of information is handled quite elegantly within the system.
+With lower level systems passing information up to and receiving back from
+higher level systems. See \ref{fig:InformationFlow} for understanding the
+general idea of how this flow happens.
+
 \begin{figure}
 \centering
 \includegraphics[width=100mm]{Figures/InformationFlow}
@@ -30,22 +28,11 @@ The system is arranged for the most part into different functional groups, refer
 \label{fig:InformationFlow}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=100mm]{Figures/InformationFlowNew}
-\decoRule
-\caption[New Information Flow]{Diagram showing how information flows in the reference frame of the redesigned control system.}
-\label{fig:InformationFlowNew}
-\end{figure}
+The individual devices are handled via their own ROS nodes, which then make
+the information from the devices available in a 'friendly' way.
+This allows for specific driver-like programs to abstract the possibly
+complex interface to the physical devices.
 
-
-Information in the AUV flows from the physical input devices: IMU, Hydrophones, and Cameras
-
-
-
-%----------------------------------------------------------------------------------------
-%	SECTION 2 - Perceived Problems
-%----------------------------------------------------------------------------------------
 
 \section{Perceived Problems}
 
@@ -64,9 +51,6 @@ The control system works directly with the state information and directly handle
 
 The control system also directly handled the vision systems. The control system did offer a simple interface for the states in the state machine to utilize.
 
-%
-%   SECTION RESTRUCTURING
-%
 
 \section{Restructuring}
 
@@ -78,4 +62,17 @@ The detection systems' functionality and usage was restricted to within the cont
 
 The primary more generalized features to handle the support for different kinds of detection being: access to result of detection and the ability to change the current active detection algorithm which could also be set to none.
 
+The updated version of the ROS communcation diagram was too large to embed into
+this document, but it has been provided \href{https://drive.google.com/file/d/1_vJLSflxahA-7v2kYGV3wu5SfGcKEVf8/view?usp=sharing}{here}.
+
+\begin{figure}
+\centering
+\includegraphics[width=100mm]{Figures/InformationFlowNew}
+\decoRule
+\caption[New Information Flow]{Diagram showing how information flows in the reference frame of the redesigned control system.}
+\label{fig:InformationFlowNew}
+\end{figure}
+
+
 \section{Forward Engineering}
+
