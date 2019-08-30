@@ -9,7 +9,8 @@ environment in which the system operates.
 The system runs in Ubuntu 16.04 on an NVIDIA Jetson TX2 Development kit.
 This operating system is required to support the use of the \gls{ROS} Kinetic
 software, its use will be explained more below.
-Development of the system is written in C++ and python.
+
+The system is written in two different programming languages, C++ and Python.
 Most of the code written on the AUV is C++ this is done primarily to increase
 the performance of the concurrent systems, and this languages' type system
 ensures code correctness.
@@ -21,6 +22,7 @@ However, the image processing interfaces for Python are more simple than C++,
 and since the Python code doesn't need to be compiled (C++ needs to be compiled)
 the Python code can be tested and adjusted significantly faster than the C++
 code.
+
 These languages are used as they work with our development environment which
 consists of two primary libraries, \gls{ROS} and \gls{opencv}.
 ROS acts as the backbone for the AUV as it is used to launch all the different
@@ -32,18 +34,10 @@ of those images for image recognition, pattern and feature matching, and cascade
 filtering to detect various objects for the RoboSub competition.
 
 The existing system consists of several different packages, two of which are
-impacted by the development of a new control system; those being "ai" and "nav."
+impacted by the development of a new control system; those being ai and nav.
 The ai package handled the state machine functionality of the AUV, also handling
 the detection systems as well. While the nav package handles direction messages
 from the ai packages' control system segment.
-
-Existing systems.
-Inter-connectivity through ROS communication structures (that diagram).
-Programming languages, and technologies.
-
-Hardware.
-Hydrophones, hydrophone boards, power board, IMU, Jetson TX2.
-Diagram of hardware connections.
 
 The ai package manages the information need to inform the control system about
 the external state.
@@ -62,3 +56,14 @@ emitting sources) that can be used to navigate quickly to sections of the
 course.
 As currently the AUV must search for those sections of the course with the
 cameras.
+
+The navigation package is responsible for taking in navigation messages and
+then processing them within the navigation package itself.
+There is a fair amount of redundant separation of duty occuring within this
+package.
+As well as several different processes that are being spawned to handle
+very small tasks.
+An example of this is a class that takes in a message containing the desired
+velocties and orientation and converts that to \gls{RPM} values for each of the
+motors.
+
