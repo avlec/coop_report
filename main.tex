@@ -23,7 +23,7 @@
 %----------------------------------------------------------------------------------------
 
 \documentclass[
-11pt, % The default document font size, options: 10pt, 11pt, 12pt
+12pt, % The default document font size, options: 10pt, 11pt, 12pt
 oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side (this also stops printing skips for duplex print)
 english, % ngerman for German
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
@@ -43,8 +43,13 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 
 \usepackage{mathpazo} % Use the Palatino font by default
 
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
-\usepackage{float}
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the
+                                % bibtex backend with the authoryear citation
+                                % style (which resembles APA)
+
+\usepackage{cleveref} % Used to automatically add Figure, etc before references.
+
+\usepackage{float} % Used to get image on title page to be on title page with [H]
 \usepackage{glossaries} % Use the glossaries package for making a glossary
 
 \addbibresource{example.bib} % The filename of the bibliography
@@ -211,14 +216,21 @@ Sincerely,\\
 
 \listoffigures % Prints the list of figures
 
-% \listoftables % Prints the list of tables
+\listoftables % Prints the list of tables
 
 \newpage
 \section*{Summary}
-
 This report covers the re-engineering process of an existing software system,
-one designed to provide autonomous control to an underwater vehicle. This report
-highlights the 
+one designed to provide autonomous control to an underwater vehicle.
+Highlighting the success of the dynamic nature when it comes to on the fly
+customization of the state machine.
+Covering less positive results of the reengineering process; issues with
+configuration and integrating the systems that were not
+touched during the reengineering phase.
+As well as lack of testing time, both out of and in the pool, led to rushed
+last minute debugging at competition.
+And also the good features from the old system that were unnoticed successes,
+which resulted in problems during the competition.
 
 \printglossaries % Prints the glossary
 

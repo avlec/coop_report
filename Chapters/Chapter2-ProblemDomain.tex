@@ -4,13 +4,32 @@
 
 \section{Operational Environment}
 
-The development for the AUV's high-level software system is developed in C++ and
-python. These languages are used as they work with our development environment.
-Our development consists of two primary libraries, \gls{ROS} and \gls{opencv},
-running on Ubuntu 16.04. ROS is a amalgamation of different libraries useful for
-the development of robotic systems. We primarily use ROS for inter-process
-communication management, and hardware abstraction. OpenCV is a software package
-for the processing of images and video, used to give the AUV understanding from visual inputs.
+To start understanding how the system works we first need to understand the
+environment in which the system operates.
+The system runs in Ubuntu 16.04 on an NVIDIA Jetson TX2 Development kit.
+This operating system is required to support the use of the \gls{ROS} Kinetic
+software, its use will be explained more below.
+Development of the system is written in C++ and python.
+Most of the code written on the AUV is C++ this is done primarily to increase
+the performance of the concurrent systems, and this languages' type system
+ensures code correctness.
+Python, being used to a lesser extent, is used for image processing and the web
+interface for managing the system.
+Using Python for image processing seems sub-optimal when the system uses C++
+because of its performance benefits.
+However, the image processing interfaces for Python are more simple than C++,
+and since the Python code doesn't need to be compiled (C++ needs to be compiled)
+the Python code can be tested and adjusted significantly faster than the C++
+code.
+These languages are used as they work with our development environment which
+consists of two primary libraries, \gls{ROS} and \gls{opencv}.
+ROS acts as the backbone for the AUV as it is used to launch all the different
+required sub-processes, and manage the inter-process communication between them.
+ROS also aids with hardware abstraction, but that isn't seen much in this
+report as the report focuses on the higher level components of the system.
+OpenCV is used to handle retrieving still images from the cameras and processing
+of those images for image recognition, pattern and feature matching, and cascade
+filtering to detect various objects for the RoboSub competition.
 
 The existing system consists of several different packages, two of which are
 impacted by the development of a new control system; those being "ai" and "nav."
@@ -27,6 +46,19 @@ Hydrophones, hydrophone boards, power board, IMU, Jetson TX2.
 Diagram of hardware connections.
 
 The ai package manages the information need to inform the control system about
-the external state. Currently this is done with camera input and depth input
-from the power board. This was intended to be expanded to support other devices,
-such as hydrophones and an \gls{IMU}.
+the external state.
+Currently this is done with camera input and depth input
+from the power board.
+This was intended to be expanded to support other devices,
+such as hydrophones and a \gls{IMU}.
+The other devices used currently, camera and power board, have proven to give
+enough control from use in previous competitions.
+However, the addition of the IMU would allow for more accurate measurement of
+the orientation of the submarine; which would allow for a more accurate heading.
+Furthermore, the addition of hydrophone functionality would allow for the AUV to
+speed up execution of some tasks at competition.
+This is because the competition course provides two underwater pingers (sound
+emitting sources) that can be used to navigate quickly to sections of the
+course.
+As currently the AUV must search for those sections of the course with the
+cameras.
