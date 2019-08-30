@@ -47,13 +47,14 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
                                 % bibtex backend with the authoryear citation
                                 % style (which resembles APA)
 
-\usepackage{cleveref} % Used to automatically add Figure, etc before references.
 
 \usepackage{float} % Used to get image on title page to be on title page with [H]
 \usepackage{glossaries} % Use the glossaries package for making a glossary
 
 \addbibresource{example.bib} % The filename of the bibliography
 \usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\usepackage{hyperref} % Used to automatically add Figure, etc before references.
 
 %----------------------------------------------------------------------------------------
 %	MARGIN SETTINGS
@@ -120,10 +121,18 @@ chapterinoneline, % Uncomment to place the chapter title next to the number on o
 \newglossaryentry{opencv}{name={OpenCV},description={A computer vision library,
     name being shorthand for open source computer vision library}}
 
+\newglossaryentry{JSON}{name={JSON},description={An acronym for JavaScript
+    object notation. Despite its original creation for use with JavaScript it
+    has become widely used by other programming languages. This is because of
+    its format being easy to understand by humans, and easy to parse by
+    computers.}}
+
 \newglossaryentry{}{name={},description={}}
 
 
 \begin{document}
+
+\let\ref\autoref % wizardry for hyperref
 
 \frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 
@@ -218,8 +227,12 @@ Sincerely,\\
 
 \listoftables % Prints the list of tables
 
+%\include{Chapters/Chapter0-Summary}
+
+
 \newpage
 \section*{Summary}
+
 This report covers the re-engineering process of an existing software system,
 one designed to provide autonomous control to an underwater vehicle.
 Highlighting the success of the dynamic nature when it comes to on the fly
@@ -231,6 +244,44 @@ As well as lack of testing time, both out of and in the pool, led to rushed
 last minute debugging at competition.
 And also the good features from the old system that were unnoticed successes,
 which resulted in problems during the competition.
+
+Some of those good features that were missed during the re-engineering process
+are as follows.
+
+\begin{itemize}
+\item Atomic movement instructions, which allowed for pre-programmed movements
+  to be loaded dynamically from a \gls{JSON} file. Missing this in the final
+  design led to states being significantly more complex because of their need to
+  explicitly control how the AUV moved.
+\item Simple interface to resources (e.g., detection results and AUV depth).
+  This was possible since the control system provided an interface for them. It
+  is worth noting the way this interface was implemented very poorly.
+\item Simple interface to navigation commands (e.g., through atomic movement
+  instructions). This allowed states to focus on getting the AUV setup to switch
+  to the next state of execution. This was missed in the new design which lead
+  to all movement related tasks to be done by hand.
+\end{itemize}
+
+The re-engineering process did however fix some of the problems with the
+existing system. Those problems that were fixed are listed as follows.
+
+\begin{itemize}
+\item Static state control system was replaced with a control system with states
+  that can be loaded at runtime.
+  This is similar to how movement files were loaded from a JSON file, but these
+  are loaded from a YAML configuration file.
+\item Collection of too much responsibility within the control system.
+  The solution was to separate the navigation components of the control system
+  into different packages. However, this made access to system resources and
+  navigation commands much more complex.
+\end{itemize}
+
+Summarizing, the positives from re-engineering the control system improved the
+parts of the control system that they were engineered to fix.
+However, the areas where the new control system were the parts left out from the
+existing system.
+The proper solution would need to bring the successes of both versions of the
+control system into one unified system.
 
 \printglossaries % Prints the glossary
 
